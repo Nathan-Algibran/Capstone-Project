@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    /* === Brand Palette === */
+    --color-forest-900: #1B3A2B;
+    --color-forest-700: #2E5940;
+    --color-canopy-500: #4C8C5C;
+    --color-earth-400: #B08B5A;
+    --color-earth-300: #C4A96A;
+
+    /* === Surface Palette === */
+    --color-cream-50: #FAF7F0;
+    --color-cream-100: #F0EBE0;
+    --color-surface: #FFFFFF;
+    --color-surface-accent: #2E5940;
+
+    /* === Content Palette === */
+    --color-text-900: #1F2420;
+    --color-text-500: #5C6660;
+    --color-text-400: #8A9490;
+    --color-text-on-dark: #FAF7F0;
+    --color-text-on-dark-secondary: #C8D4CA;
+
+    /* === Border Palette === */
+    --color-border-subtle: #F0EBE0;
+    --color-border-medium: #D4CFC4;
+
+    /* === Semantic Colors === */
+    --color-alert-500: #C1502E;
+    --color-alert-400: #D4693A;
+    --color-success: #4C8C5C;
+    --color-warning: #B08B5A;
+
+    /* === Conservation Status === */
+    --color-status-kritis: #C1502E;
+    --color-status-terancam: #D4693A;
+    --color-status-rentan: #B08B5A;
+    --color-status-hampir: #C4A96A;
+    --color-status-rendah: #6A9E6E;
+    --color-status-kurang: #8A9490;
+
+    /* === Tipografi === */
+    --font-heading: 'Playfair Display', 'Georgia', serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* === Shadows (warm-toned) === */
+    --shadow-subtle: 0 1px 3px rgba(27, 58, 43, 0.06);
+    --shadow-medium: 0 4px 14px rgba(27, 58, 43, 0.10);
+    --shadow-large: 0 12px 36px rgba(27, 58, 43, 0.14);
+    --shadow-overlay: 0 24px 64px rgba(0, 0, 0, 0.40);
+}
+
+/* === Base Styles === */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-900);
+    background-color: var(--color-cream-50);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* === Heading defaults === */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
+
+/* === Smooth transitions for all interactive elements === */
+a, button, input, select, textarea {
+    transition: all 0.2s ease;
+}
+
+/* === Focus ring (design.md) === */
+*:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-cream-50), 0 0 0 4px var(--color-canopy-500);
+}
+
+/* === Scrollbar styling === */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-cream-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-forest-700);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-forest-900);
+}
