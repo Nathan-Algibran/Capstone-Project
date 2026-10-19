@@ -12,10 +12,10 @@
     <section class="py-16 lg:py-20 bg-white" id="statistik">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                <x-stat-card value="14" label="Spesies Dikenali" suffix="" />
-                <x-stat-card value="5000" label="Gambar Dataset" suffix="+" />
+                <x-stat-card value="{{ $stats['spesies_count'] }}" label="Spesies Terdaftar" suffix="" />
+                <x-stat-card value="{{ $stats['deteksi_count'] }}" label="Foto Teranalisis" suffix="+" />
                 <x-stat-card value="92" label="Akurasi Model" suffix="%" />
-                <x-stat-card value="150" label="Kejadian Konflik Teridentifikasi" suffix="+" />
+                <x-stat-card value="{{ $stats['konflik_count'] }}" label="Kejadian Konflik Tercatat" suffix="" />
             </div>
         </div>
     </section>
@@ -29,24 +29,13 @@
             />
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @php
-                    $spesiesUnggulan = [
-                        ['nama' => 'Harimau Sumatra', 'namaIlmiah' => 'Panthera tigris sumatrae', 'status' => 'Kritis', 'slug' => 'harimau-sumatra', 'foto' => asset('images/species/harimau-sumatra.png')],
-                        ['nama' => 'Gajah Sumatra', 'namaIlmiah' => 'Elephas maximus sumatranus', 'status' => 'Kritis', 'slug' => 'gajah-sumatra', 'foto' => asset('images/species/gajah-sumatra.png')],
-                        ['nama' => 'Badak Sumatra', 'namaIlmiah' => 'Dicerorhinus sumatrensis', 'status' => 'Kritis', 'slug' => 'badak-sumatra', 'foto' => asset('images/species/badak-sumatra.png')],
-                        ['nama' => 'Orangutan Sumatra', 'namaIlmiah' => 'Pongo abelii', 'status' => 'Kritis', 'slug' => 'orangutan-sumatra', 'foto' => asset('images/species/orangutan-sumatra.png')],
-                        ['nama' => 'Tapir Asia', 'namaIlmiah' => 'Tapirus indicus', 'status' => 'Terancam Punah', 'slug' => 'tapir-asia', 'foto' => asset('images/species/tapir-asia.png')],
-                        ['nama' => 'Macan Dahan', 'namaIlmiah' => 'Neofelis nebulosa', 'status' => 'Rentan', 'slug' => 'macan-dahan', 'foto' => null],
-                    ];
-                @endphp
-
                 @foreach ($spesiesUnggulan as $sp)
                     <x-species-card
-                        :nama="$sp['nama']"
-                        :nama-ilmiah="$sp['namaIlmiah']"
-                        :status="$sp['status']"
-                        :slug="$sp['slug']"
-                        :foto="$sp['foto']"
+                        :nama="$sp->nama_umum"
+                        :nama-ilmiah="$sp->nama_ilmiah"
+                        :status="$sp->status_konservasi"
+                        :slug="$sp->slug"
+                        :foto="file_exists(public_path('images/species/' . $sp->slug . '.png')) ? asset('images/species/' . $sp->slug . '.png') : null"
                     />
                 @endforeach
             </div>

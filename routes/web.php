@@ -6,9 +6,7 @@ use App\Http\Controllers\PetaController;
 use App\Http\Controllers\SatwaController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.home');
-});
+Route::get('/', [PageController::class, 'home'])->name('home');
 
 // Satwa
 Route::get('/satwa', [SatwaController::class, 'index'])->name('satwa.index');

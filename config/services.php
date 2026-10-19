@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'detection_api' => [
+    'url' => env('DETECTION_API_URL', 'http://127.0.0.1:8001'),
+],
+
+    'gee_api' => [
+        'url' => env('GEE_API_URL', 'http://127.0.0.1:8003'),
+    ],
+
 ];

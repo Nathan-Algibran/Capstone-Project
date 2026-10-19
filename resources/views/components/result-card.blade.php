@@ -10,6 +10,10 @@
 ])
 
 @php
+    // API mengembalikan confidence sebagai 0–1 (misal 0.92).
+    // Konversi ke persentase 0–100 untuk tampilan.
+    $confidence = $confidence <= 1 ? $confidence * 100 : $confidence;
+
     // Color berdasarkan confidence level
     if ($confidence >= 90) {
         $confColor = 'text-canopy-500';

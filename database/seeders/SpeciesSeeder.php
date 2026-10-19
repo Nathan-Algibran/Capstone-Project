@@ -150,6 +150,73 @@ class SpeciesSeeder extends Seeder
                 'ancaman_utama' => 'Perburuan untuk daging dan duri (dipercaya berkhasiat obat).',
                 'jumlah_terdeteksi' => 67,
             ],
+
+            // ============================================================
+            // TAMBAHAN: 6 spesies ini ADA di 14 kelas hasil training model
+            // (ResNet50), tapi sebelumnya belum ada di seeder.
+            // PENTING: nama_ilmiah diawali persis "Genus species" (2 kata)
+            // karena controller mencocokkan pakai LIKE 'genus species%'.
+            // ============================================================
+            [
+                'nama_ilmiah' => 'Macaca nemestrina',
+                'nama_umum' => 'Beruk',
+                'slug' => 'beruk',
+                'status_konservasi' => 'Rentan',
+                'deskripsi' => 'Beruk adalah salah satu jenis kera ekor pendek yang tersebar luas di hutan Sumatra. Dikenal cerdas dan mudah beradaptasi, beruk hidup berkelompok dan sering terlihat di camera trap karena aktivitas hariannya yang tinggi di lantai maupun kanopi hutan.',
+                'habitat' => 'Hutan primer dan sekunder, dataran rendah hingga perbukitan',
+                'ancaman_utama' => 'Hilangnya habitat, perburuan, konflik dengan manusia di area perkebunan.',
+                'jumlah_terdeteksi' => 0,
+            ],
+            [
+                'nama_ilmiah' => 'Macaca fascicularis',
+                'nama_umum' => 'Monyet Ekor Panjang',
+                'slug' => 'monyet-ekor-panjang',
+                'status_konservasi' => 'Terancam Punah',
+                'deskripsi' => 'Monyet Ekor Panjang adalah primata yang sangat adaptif, ditemukan mulai dari hutan alami hingga area dekat pemukiman manusia. Populasinya sempat dianggap melimpah, namun penilaian IUCN terbaru menaikkan status konservasinya akibat perburuan dan perdagangan.',
+                'habitat' => 'Hutan riparian, hutan sekunder, area dekat sungai',
+                'ancaman_utama' => 'Perdagangan untuk penelitian, perburuan, konflik dengan manusia.',
+                'jumlah_terdeteksi' => 0,
+            ],
+            [
+                'nama_ilmiah' => 'Argusianus argus',
+                'nama_umum' => 'Kuau Raja',
+                'slug' => 'kuau-raja',
+                'status_konservasi' => 'Hampir Terancam',
+                'deskripsi' => 'Kuau Raja adalah burung berukuran besar dari keluarga pegar, terkenal dengan bulu ekor jantan yang sangat panjang dan tarian kawin yang rumit. Sering terekam camera trap karena kebiasaannya mencari makan di lantai hutan.',
+                'habitat' => 'Hutan hujan tropis dataran rendah yang belum terganggu',
+                'ancaman_utama' => 'Deforestasi, perburuan untuk bulu dan perdagangan satwa.',
+                'jumlah_terdeteksi' => 0,
+            ],
+            [
+                'nama_ilmiah' => 'Capricornis sumatraensis',
+                'nama_umum' => 'Kambing Hutan Sumatra',
+                'slug' => 'kambing-hutan-sumatra',
+                'status_konservasi' => 'Rentan',
+                'deskripsi' => 'Kambing Hutan Sumatra adalah mamalia mirip kambing yang hidup di area berbukit dan bergunung. Kemampuannya memanjat medan curam membuatnya jarang terlihat langsung, namun cukup sering terekam camera trap di jalur pegunungan.',
+                'habitat' => 'Hutan pegunungan, area berbatu dan curam',
+                'ancaman_utama' => 'Perburuan, hilangnya habitat akibat pembukaan lahan.',
+                'jumlah_terdeteksi' => 0,
+            ],
+            [
+                'nama_ilmiah' => 'Martes flavigula',
+                'nama_umum' => 'Musang Leher Kuning',
+                'slug' => 'musang-leher-kuning',
+                'status_konservasi' => 'Risiko Rendah',
+                'deskripsi' => 'Musang Leher Kuning adalah karnivora kecil yang gesit, dikenali dari corak leher kuning cerah yang kontras dengan tubuhnya. Merupakan predator oportunistik yang memangsa serangga, buah, hingga vertebrata kecil.',
+                'habitat' => 'Hutan primer dan sekunder, dataran rendah hingga pegunungan',
+                'ancaman_utama' => 'Hilangnya habitat, meski populasi relatif stabil dibanding spesies lain.',
+                'jumlah_terdeteksi' => 0,
+            ],
+            [
+                'nama_ilmiah' => 'Paguma larvata',
+                'nama_umum' => 'Musang Akar',
+                'slug' => 'musang-akar',
+                'status_konservasi' => 'Risiko Rendah',
+                'deskripsi' => 'Musang Akar adalah karnivora nokturnal dari keluarga Viverridae, dikenali dari corak wajah seperti topeng. Berperan penting dalam penyebaran biji buah-buahan hutan melalui aktivitas makannya.',
+                'habitat' => 'Hutan primer dan sekunder, area dekat perkebunan',
+                'ancaman_utama' => 'Perburuan, perdagangan sebagai bagian dari industri kopi luwak.',
+                'jumlah_terdeteksi' => 0,
+            ],
         ];
 
         foreach ($speciesData as $data) {

@@ -15,12 +15,17 @@ class ConflictIncident extends Model
         'tanggal',
         'sumber',
         'deskripsi',
+        'land_class_id',
+        'land_class_label',
+        'cluster_id',
     ];
 
     protected $casts = [
         'lokasi_lat' => 'decimal:7',
         'lokasi_lng' => 'decimal:7',
         'tanggal' => 'date',
+        'land_class_id' => 'integer',
+        'cluster_id' => 'integer',
     ];
 
     public function species(): BelongsTo

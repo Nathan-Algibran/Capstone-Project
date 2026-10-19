@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Detection;
 use App\Models\Species;
 use App\Models\ConflictIncident;
+use App\Http\Controllers\PetaController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class DeteksiController extends Controller
 {
@@ -21,12 +24,34 @@ class DeteksiController extends Controller
             'foto' => 'required|image|mimes:jpeg,jpg,png|max:10240',
         ]);
 
-        // Simpan foto
-        $path = $request->file('foto')->store('detections', 'public');
+        $file = $request->file('foto');
 
-        // Dummy: pilih spesies acak dan confidence acak (AI belum terhubung)
-        $species = Species::inRandomOrder()->first();
-        $confidence = rand(7500, 9800) / 100; // 75.00 - 98.00
+        // Simpan foto ke storage (sama seperti sebelumnya)
+        $path = $file->store('detections', 'public');
+
+        // --- Panggil API Python (FastAPI + MegaDetector + ResNet) ---
+        $apiResult = $this->callDetectionApi($file);
+
+        $species = null;
+        $confidence = null;
+
+        if ($apiResult !== null && count($apiResult['detections']) > 0) {
+            // Ambil deteksi dengan classification_confidence tertinggi,
+            // abaikan yang "tidak_teridentifikasi"
+            $bestDetection = collect($apiResult['detections'])
+                ->where('species', '!=', 'tidak_teridentifikasi')
+                ->sortByDesc('classification_confidence')
+                ->first();
+
+            if ($bestDetection) {
+                $species = $this->findSpeciesByModelClass($bestDetection['species']);
+                $confidence = $bestDetection['classification_confidence'];
+
+                if ($species) {
+                    $species->increment('jumlah_terdeteksi');
+                }
+            }
+        }
 
         $detection = Detection::create([
             'species_id' => $species?->id,
@@ -40,11 +65,61 @@ class DeteksiController extends Controller
         return redirect()->route('deteksi.hasil', $detection->id);
     }
 
+    /**
+     * Kirim foto ke API Python (FastAPI) untuk deteksi + klasifikasi.
+     * Return null kalau API gagal dihubungi (misal service belum jalan),
+     * supaya sistem tetap jalan (fallback ke "tidak teridentifikasi")
+     * daripada error total.
+     */
+    private function callDetectionApi($file): ?array
+    {
+        $apiUrl = config('services.detection_api.url');
+
+        try {
+            $response = Http::timeout(30)
+                ->attach(
+                    'file',
+                    file_get_contents($file->getRealPath()),
+                    $file->getClientOriginalName()
+                )
+                ->post($apiUrl . '/predict');
+
+            if ($response->successful()) {
+                return $response->json();
+            }
+
+            Log::warning('Detection API mengembalikan status gagal', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Gagal menghubungi Detection API: ' . $e->getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Cocokkan nama kelas dari model klasifikasi (contoh: "elephas_maximus")
+     * dengan record di tabel species berdasarkan nama_ilmiah.
+     *
+     * Konversi: "elephas_maximus" -> "elephas maximus" -> dicocokkan
+     * case-insensitive dengan kolom nama_ilmiah (contoh: "Elephas maximus").
+     */
+    private function findSpeciesByModelClass(string $modelClassName): ?Species
+    {
+        $normalized = strtolower(str_replace('_', ' ', $modelClassName));
+
+        // Pakai LIKE 'genus species%' supaya tetap cocok meski di database
+        // ditulis dengan nama subspesies lengkap, misal:
+        // classifier: "panthera tigris" -> cocok dengan DB: "Panthera tigris sumatrae"
+        return Species::whereRaw('LOWER(nama_ilmiah) LIKE ?', [$normalized . '%'])->first();
+    }
+
     public function hasil($id)
     {
         $detection = Detection::with('species')->findOrFail($id);
 
-        // Data konflik untuk spesies yang terdeteksi
         $conflictData = [];
         $conflictStats = [];
 
@@ -53,7 +128,6 @@ class DeteksiController extends Controller
                 ->orderBy('tanggal', 'desc')
                 ->get();
 
-            // Format data untuk Leaflet map (JSON)
             $conflictData = $conflicts->map(function ($c) {
                 return [
                     'lat' => (float) $c->lokasi_lat,
@@ -62,10 +136,11 @@ class DeteksiController extends Controller
                     'tanggal' => $c->tanggal->format('d M Y'),
                     'sumber' => $c->sumber,
                     'deskripsi' => $c->deskripsi,
+                    'land_class' => $c->land_class_label,
+                    'cluster_id' => $c->cluster_id,
                 ];
             })->values();
 
-            // Statistik konflik
             $conflictStats = [
                 'total' => $conflicts->count(),
                 'lokasi_terbanyak' => $conflicts->groupBy('lokasi_nama')
@@ -76,20 +151,34 @@ class DeteksiController extends Controller
             ];
         }
 
-        // Area habitat (koordinat pusat peta berdasarkan spesies)
         $habitatCenter = $this->getHabitatCenter($detection->species?->slug);
+
+        // Ambil MapBiomas GEE tile URL & legenda
+        $petaController = new PetaController();
+        $geeData = $petaController->fetchGeeTileUrl(2024);
+        $geeLegend = Cache::remember('gee_mapbiomas_legend', 86400, function () {
+            try {
+                $apiUrl = config('services.gee_api.url');
+                $response = Http::timeout(10)->get("{$apiUrl}/legend");
+                if ($response->successful()) {
+                    return $response->json()['legend'] ?? [];
+                }
+            } catch (\Exception $e) {
+                Log::warning('Gagal ambil legenda GEE: ' . $e->getMessage());
+            }
+            return [];
+        });
 
         return view('pages.deteksi.hasil', compact(
             'detection',
             'conflictData',
             'conflictStats',
             'habitatCenter',
+            'geeData',
+            'geeLegend',
         ));
     }
 
-    /**
-     * Koordinat pusat habitat untuk tiap spesies di Sumatra.
-     */
     private function getHabitatCenter(?string $slug): array
     {
         $habitats = [

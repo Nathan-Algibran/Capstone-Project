@@ -91,6 +91,8 @@
                     height="450px"
                     :markers="$conflictData->toArray()"
                     :habitatLabel="$habitatCenter['label']"
+                    :geeData="$geeData"
+                    :geeLegend="$geeLegend"
                 />
             </div>
         </section>

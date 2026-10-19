@@ -27,3 +27,8 @@ Homestead.yaml
 Thumbs.db
 AGENT.md
 design.md
+/scripts/gee_service/service-account-key.json
+/scripts/gee_service/.env
+__pycache__/
+*.pyc
+scripts/gee_service/venv/

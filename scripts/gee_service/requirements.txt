@@ -1,0 +1,21 @@
+# SIMAKSI MapBiomas Tile Service - Dependencies
+# Tile serving dari GeoTIFF publik MapBiomas Indonesia
+
+# Core web framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+
+# Environment
+python-dotenv>=1.0.0
+
+# Geospatial tile rendering (baca GeoTIFF dari Cloud Storage)
+rio-tiler>=6.0.0
+rasterio>=1.3.0
+
+# Image processing
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# GEE (opsional, untuk pixel query fallback)
+earthengine-api>=0.1.390
+google-auth>=2.22.0

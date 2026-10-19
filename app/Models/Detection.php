@@ -14,12 +14,18 @@ class Detection extends Model
         'lokasi_lat',
         'lokasi_lng',
         'lokasi_nama',
+        'land_class_id',
+        'land_class_label',
+        'tipe',
+        'cluster_id',
     ];
 
     protected $casts = [
         'confidence' => 'decimal:2',
         'lokasi_lat' => 'decimal:7',
         'lokasi_lng' => 'decimal:7',
+        'land_class_id' => 'integer',
+        'cluster_id' => 'integer',
     ];
 
     public function species(): BelongsTo
