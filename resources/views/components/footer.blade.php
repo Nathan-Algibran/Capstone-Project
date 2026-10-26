@@ -6,13 +6,9 @@
             {{-- Kolom 1: Tentang --}}
             <div class="sm:col-span-2 lg:col-span-1">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-9 h-9 bg-canopy-500 rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-cream-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5"/>
-                            <path d="M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
+                    <img src="{{ asset('images/logo-simaksi.png') }}"
+                         alt="SIMAKSI Logo"
+                         class="w-10 h-10 rounded-full object-cover">
                     <span class="text-cream-50 font-heading text-xl font-bold tracking-wide">SIMAKSI</span>
                 </div>
                 <p class="text-sm leading-relaxed">

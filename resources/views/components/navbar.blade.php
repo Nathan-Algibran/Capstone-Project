@@ -5,14 +5,10 @@
 
             {{-- Logo --}}
             <a href="{{ url('/') }}" class="flex items-center gap-3 group">
-                <div class="w-9 h-9 lg:w-10 lg:h-10 bg-canopy-500 rounded-lg flex items-center justify-center
+                <img src="{{ asset('images/logo-simaksi.png') }}"
+                     alt="SIMAKSI Logo"
+                     class="w-10 h-10 lg:w-12 lg:h-12 rounded-full object-cover
                             transition-transform duration-300 group-hover:scale-110">
-                    <svg class="w-5 h-5 lg:w-6 lg:h-6 text-cream-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                        <path d="M2 17l10 5 10-5"/>
-                        <path d="M2 12l10 5 10-5"/>
-                    </svg>
-                </div>
                 <span class="text-cream-50 font-heading text-xl lg:text-2xl font-bold tracking-wide">SIMAKSI</span>
             </a>
 
