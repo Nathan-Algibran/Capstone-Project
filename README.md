@@ -1,4 +1,4 @@
-# 🐅 SIMAKSI
+# SIMAKSI
 
 **Sistem Informasi Monitoring dan Analisis Konflik Satwa Liar Indonesia**
 
@@ -6,7 +6,7 @@ SIMAKSI adalah aplikasi web untuk mendeteksi spesies satwa liar dari foto camera
 
 ---
 
-## ✨ Fitur Utama
+## Fitur Utama
 
 | Fitur | Deskripsi |
 |-------|-----------|
@@ -20,7 +20,7 @@ SIMAKSI adalah aplikasi web untuk mendeteksi spesies satwa liar dari foto camera
 
 ---
 
-## 🧠 Arsitektur & Algoritma
+## Arsitektur & Algoritma
 
 ```
 Foto Camera Trap
@@ -57,7 +57,7 @@ Foto Camera Trap
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Teknologi |
 |-------|-----------|
@@ -70,7 +70,7 @@ Foto Camera Trap
 
 ---
 
-## 📦 Prasyarat
+## Prasyarat
 
 - **PHP** ≥ 8.2
 - **Composer** ≥ 2.x
@@ -80,7 +80,7 @@ Foto Camera Trap
 
 ---
 
-## 🚀 Instalasi
+## Instalasi
 
 ### 1. Clone Repository
 
@@ -146,7 +146,7 @@ Akses aplikasi di: **http://localhost:8000**
 
 ---
 
-## 🌍 Setup GEE Service (Opsional)
+## Setup GEE Service (Opsional)
 
 GEE Service diperlukan untuk menampilkan peta tutupan lahan MapBiomas.
 
@@ -194,7 +194,7 @@ uvicorn main:app --port 8003
 
 ---
 
-## 🐍 Scripts Utility
+## Scripts Utility
 
 | Script | Fungsi | Perintah |
 |--------|--------|----------|
@@ -203,7 +203,7 @@ uvicorn main:app --port 8003
 
 ---
 
-## 📁 Struktur Direktori
+## Struktur Direktori
 
 ```
 SIMAKSI/
@@ -233,7 +233,7 @@ SIMAKSI/
 
 ---
 
-## 🦁 14 Spesies yang Dideteksi
+## 14 Spesies yang Dideteksi
 
 | No | Spesies | Nama Ilmiah | Status IUCN |
 |----|---------|-------------|-------------|
@@ -254,7 +254,7 @@ SIMAKSI/
 
 ---
 
-## 📊 Sumber Data Konflik
+## Sumber Data Konflik
 
 Data konflik manusia-satwa liar dihimpun dari:
 - **BKSDA** (Balai Konservasi Sumber Daya Alam) seluruh provinsi Sumatra
@@ -267,7 +267,7 @@ Total: **87 insiden** tercatat (2015–2026)
 
 ---
 
-## 📄 Lisensi
+## Lisensi
 
 Proyek Capstone — Semester 5
 
