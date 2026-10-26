@@ -201,4 +201,67 @@ class PetaController extends Controller
 
         return $earthRadius * $c;
     }
+    /**
+     * Export data konflik ke CSV.
+     */
+    public function exportCsv(Request $request)
+    {
+        $query = ConflictIncident::with('species');
+
+        if ($request->filled('species')) {
+            $query->where('species_id', $request->input('species'));
+        }
+
+        $year = (int) $request->input('year', 2024);
+        $query->whereYear('tanggal', $year);
+
+        $conflicts = $query->orderBy('tanggal', 'desc')->get();
+
+        $filename = "konflik_satwa_{$year}.csv";
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
+
+        $callback = function () use ($conflicts) {
+            $file = fopen('php://output', 'w');
+
+            // BOM untuk Excel UTF-8
+            fprintf($file, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+            // Header row
+            fputcsv($file, [
+                'No',
+                'Spesies',
+                'Nama Ilmiah',
+                'Tanggal',
+                'Lokasi',
+                'Latitude',
+                'Longitude',
+                'Kelas Lahan',
+                'Sumber',
+                'Deskripsi',
+            ]);
+
+            foreach ($conflicts as $i => $c) {
+                fputcsv($file, [
+                    $i + 1,
+                    $c->species?->nama_umum ?? 'Tidak diketahui',
+                    $c->species?->nama_ilmiah ?? '-',
+                    $c->tanggal->format('Y-m-d'),
+                    $c->lokasi_nama,
+                    $c->lokasi_lat,
+                    $c->lokasi_lng,
+                    $c->land_class_label ?? '-',
+                    $c->sumber,
+                    $c->deskripsi,
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 }

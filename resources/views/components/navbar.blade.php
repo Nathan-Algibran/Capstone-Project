@@ -24,7 +24,7 @@
                         ['url' => '/tentang', 'label' => 'Tentang', 'pattern' => 'tentang*'],
                         ['url' => '/satwa', 'label' => 'Satwa Liar', 'pattern' => 'satwa*'],
                         ['url' => '/deteksi', 'label' => 'Deteksi', 'pattern' => 'deteksi*'],
-                        ['url' => '/peta-biomassa', 'label' => 'Peta Biomas', 'pattern' => 'peta-biomassa*'],
+                        ['url' => '/peta-biomassa', 'label' => 'MapBiomas', 'pattern' => 'peta-biomassa*'],
                         ['url' => '/kontak', 'label' => 'Kontak', 'pattern' => 'kontak*'],
                     ];
                 @endphp

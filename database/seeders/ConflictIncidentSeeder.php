@@ -62,6 +62,7 @@ class ConflictIncidentSeeder extends Seeder
             ['species_slug'=>'beruang-madu','lat'=>-0.0842,'lng'=>100.3653,'nama'=>'Kec. Ampek Koto, Kab. Agam, Sumbar','tanggal'=>'2024-05-10','sumber'=>'BKSDA Sumbar','deskripsi'=>'Beruang madu masuk pemukiman mencari makanan. Warga melaporkan kerusakan kebun buah.'],
             ['species_slug'=>'beruang-madu','lat'=>0.3500,'lng'=>101.4500,'nama'=>'Kab. Kampar, Riau','tanggal'=>'2023-11-05','sumber'=>'BKSDA Riau','deskripsi'=>'Beruang madu merusak sarang lebah dan kebun durian warga di pinggir hutan.'],
             ['species_slug'=>'beruang-madu','lat'=>-1.5900,'lng'=>101.2500,'nama'=>'Kawasan TN Kerinci Seblat, Jambi','tanggal'=>'2022-08-18','sumber'=>'Balai TNKS','deskripsi'=>'Beruang madu terekam camera trap memasuki area ladang kopi di batas TNKS.'],
+            ['species_slug'=>'beruang-madu','lat'=>-3.438,'lng'=>102.267,'nama'=>'Desa Sumberejo, Kec. Hulu Palik, Kab. Bengkulu Utara, Bengkulu','tanggal'=>'2026-01-30','sumber'=>'BKSDA Bengkulu','deskripsi'=>'Perjumpaan 1 individu beruang madu dengan warga di area desa.'],
 
             // =============================================================
             // BABI HUTAN (Sus scrofa)
@@ -112,12 +113,6 @@ class ConflictIncidentSeeder extends Seeder
             ['species_slug'=>'kuau-raja','lat'=>-1.5500,'lng'=>101.3000,'nama'=>'TN Kerinci Seblat, Jambi','tanggal'=>'2023-04-15','sumber'=>'Balai TNKS','deskripsi'=>'Kuau raja terekam camera trap di area yang terganggu aktivitas manusia (perambahan).'],
             ['species_slug'=>'kuau-raja','lat'=>3.7500,'lng'=>97.5800,'nama'=>'Ekosistem Leuser, Kab. Langkat, Sumut','tanggal'=>'2022-11-08','sumber'=>'HAkA / BKSDA Aceh','deskripsi'=>'Kuau raja ditemukan terjerat di area perambahan hutan Leuser.'],
 
-            // =============================================================
-            // TRENGGILING SUNDA (Manis javanica)
-            // =============================================================
-            ['species_slug'=>'trenggiling-sunda','lat'=>0.0250,'lng'=>100.0083,'nama'=>'Kab. Pasaman Barat, Sumbar','tanggal'=>'2022-04-18','sumber'=>'BKSDA Sumbar / Polda','deskripsi'=>'Penyelundupan 22 kg sisik trenggiling digagalkan di Pasaman Barat.'],
-            ['species_slug'=>'trenggiling-sunda','lat'=>-0.9500,'lng'=>100.3500,'nama'=>'Kota Padang, Sumbar','tanggal'=>'2024-09-10','sumber'=>'BKSDA Sumbar / Polda Sumbar','deskripsi'=>'Perdagangan puluhan kilogram sisik trenggiling diungkap di Padang.'],
-            ['species_slug'=>'trenggiling-sunda','lat'=>1.6500,'lng'=>99.1500,'nama'=>'Kel. Pasar Sipirok, Kec. Sipirok, Kab. Tapanuli Selatan, Sumut','tanggal'=>'2024-05-20','sumber'=>'Polda Sumut','deskripsi'=>'Polda mengungkap perdagangan bagian tubuh satwa dilindungi, menyita 4,7 kg sisik trenggiling.'],
 
             // =============================================================
             // LANDAK RAYA (Hystrix brachyura)
@@ -182,9 +177,6 @@ class ConflictIncidentSeeder extends Seeder
             ['species_slug'=>'monyet-ekor-panjang','lat'=>0.5000,'lng'=>101.4500,'nama'=>'Kota Pekanbaru, Riau','tanggal'=>'2019-09-12','sumber'=>'BBKSDA Riau','deskripsi'=>'Monyet ekor panjang menyerang warga di area pemukiman dekat hutan.'],
             ['species_slug'=>'monyet-ekor-panjang','lat'=>3.5833,'lng'=>98.6833,'nama'=>'Kab. Langkat, Sumut','tanggal'=>'2018-06-25','sumber'=>'BBKSDA Sumut','deskripsi'=>'Kawanan monyet merusak kebun jagung dan singkong warga di pinggir kawasan hutan.'],
 
-            // --- TRENGGILING SUNDA 2015-2019 ---
-            ['species_slug'=>'trenggiling-sunda','lat'=>0.3500,'lng'=>101.4500,'nama'=>'Kab. Kampar, Riau','tanggal'=>'2019-11-15','sumber'=>'BBKSDA Riau / Polda Riau','deskripsi'=>'Polisi mengungkap jaringan perdagangan trenggiling hidup dan sisik di Riau.'],
-            ['species_slug'=>'trenggiling-sunda','lat'=>2.9500,'lng'=>99.0500,'nama'=>'Kab. Simalungun, Sumut','tanggal'=>'2017-03-20','sumber'=>'BBKSDA Sumut','deskripsi'=>'Trenggiling diserahkan warga ke BBKSDA setelah ditemukan di kebun sawit.'],
 
             // --- LANDAK RAYA 2015-2019 ---
             ['species_slug'=>'landak-raya','lat'=>-0.1333,'lng'=>100.2167,'nama'=>'Kec. Palembayan, Kab. Agam, Sumbar','tanggal'=>'2019-02-10','sumber'=>'BKSDA Sumbar','deskripsi'=>'Landak masuk ke area perkebunan dan merusak tanaman singkong warga.'],

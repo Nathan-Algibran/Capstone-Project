@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Peta Biomas & Zona Konflik')
+@section('title', 'MapBiomas & Zona Konflik')
 @section('meta_description', 'Peta interaktif wilayah Sumatra menampilkan tutupan lahan MapBiomas dan titik-titik kejadian konflik manusia-satwa liar. Jelajahi data berdasarkan spesies.')
 
 @section('content')
@@ -9,7 +9,7 @@
     <section class="bg-forest-900 pt-24 pb-12 lg:pt-32 lg:pb-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-3xl lg:text-5xl font-bold font-heading text-cream-50 mb-4">
-                Peta Biomassa & Zona Konflik
+                MapBiomas & Zona Konflik
             </h1>
             <p class="text-cream-100/70 text-lg max-w-2xl">
                 Jelajahi peta interaktif wilayah Sumatra dengan overlay tutupan lahan
@@ -85,6 +85,16 @@
                         Reset
                     </a>
                 @endif
+
+                {{-- Export CSV --}}
+                <a href="{{ route('peta.exportCsv', ['year' => $year, 'species' => request('species')]) }}"
+                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-canopy-500 hover:bg-canopy-600 text-cream-50 text-sm font-semibold rounded-xl transition-all duration-300"
+                   id="peta-export-csv-btn">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                    </svg>
+                    Export CSV
+                </a>
             </form>
         </div>
     </section>

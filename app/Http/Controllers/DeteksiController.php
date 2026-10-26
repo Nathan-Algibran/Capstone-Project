@@ -179,23 +179,55 @@ class DeteksiController extends Controller
         ));
     }
 
+    /**
+     * Halaman cetak / export PDF untuk hasil deteksi.
+     * Menggunakan layout print-friendly yang bisa di-save as PDF via browser.
+     */
+    public function cetak($id)
+    {
+        $detection = Detection::with('species')->findOrFail($id);
+
+        $conflicts = collect();
+        $conflictStats = [];
+
+        if ($detection->species) {
+            $conflicts = ConflictIncident::where('species_id', $detection->species_id)
+                ->orderBy('tanggal', 'desc')
+                ->get();
+
+            $conflictStats = [
+                'total' => $conflicts->count(),
+                'lokasi_terbanyak' => $conflicts->groupBy('lokasi_nama')
+                    ->sortByDesc(fn ($group) => $group->count())
+                    ->keys()
+                    ->first() ?? '-',
+                'terakhir' => $conflicts->first()?->tanggal->format('d M Y') ?? '-',
+            ];
+        }
+
+        return view('pages.deteksi.cetak', compact(
+            'detection',
+            'conflicts',
+            'conflictStats',
+        ));
+    }
     private function getHabitatCenter(?string $slug): array
     {
         $habitats = [
-            'harimau-sumatra'    => ['lat' => -1.5, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan hujan tropis Sumatra'],
-            'gajah-sumatra'      => ['lat' => -2.0, 'lng' => 102.0, 'zoom' => 7, 'label' => 'Dataran rendah Sumatra Tengah & Selatan'],
-            'badak-sumatra'      => ['lat' => -4.5, 'lng' => 104.5, 'zoom' => 8, 'label' => 'Way Kambas & Bukit Barisan Selatan'],
-            'orangutan-sumatra'  => ['lat' => 3.5, 'lng' => 97.8, 'zoom' => 8, 'label' => 'Ekosistem Leuser, Aceh & Sumut'],
-            'tapir-asia'         => ['lat' => -1.0, 'lng' => 101.0, 'zoom' => 7, 'label' => 'Hutan primer Sumatra Barat & Jambi'],
-            'beruang-madu'       => ['lat' => -0.5, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan tropis Sumatra'],
-            'macan-dahan'        => ['lat' => -2.0, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan pegunungan Kerinci Seblat'],
-            'kucing-emas-asia'   => ['lat' => -1.5, 'lng' => 101.0, 'zoom' => 7, 'label' => 'Hutan primer & sekunder Sumatra'],
-            'rusa-sambar'        => ['lat' => -1.0, 'lng' => 102.0, 'zoom' => 7, 'label' => 'Hutan & padang rumput Sumatra'],
-            'babi-hutan'         => ['lat' => -1.5, 'lng' => 102.0, 'zoom' => 6, 'label' => 'Tersebar luas di Sumatra'],
-            'kijang-muntjak'     => ['lat' => -1.0, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan hujan & semak belukar Sumatra'],
-            'trenggiling-sunda'  => ['lat' => -2.0, 'lng' => 102.0, 'zoom' => 7, 'label' => 'Hutan primer Sumatra'],
-            'binturong'          => ['lat' => -0.5, 'lng' => 101.0, 'zoom' => 7, 'label' => 'Kanopi hutan tropis Sumatra'],
-            'landak-raya'        => ['lat' => -1.5, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan & area berbatu Sumatra'],
+            'harimau-sumatra'       => ['lat' => -1.5, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan hujan tropis Sumatra'],
+            'gajah-sumatra'         => ['lat' => -2.0, 'lng' => 102.0, 'zoom' => 7, 'label' => 'Dataran rendah Sumatra Tengah & Selatan'],
+            'tapir-asia'            => ['lat' => -1.0, 'lng' => 101.0, 'zoom' => 7, 'label' => 'Hutan primer Sumatra Barat & Jambi'],
+            'beruang-madu'          => ['lat' => -0.5, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan tropis Sumatra'],
+            'rusa-sambar'           => ['lat' => -1.0, 'lng' => 102.0, 'zoom' => 7, 'label' => 'Hutan & padang rumput Sumatra'],
+            'babi-hutan'            => ['lat' => -1.5, 'lng' => 102.0, 'zoom' => 6, 'label' => 'Tersebar luas di Sumatra'],
+            'kijang-muntjak'        => ['lat' => -1.0, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan hujan & semak belukar Sumatra'],
+            'landak-raya'           => ['lat' => -1.5, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan & area berbatu Sumatra'],
+            'beruk'                 => ['lat' => -0.5, 'lng' => 101.0, 'zoom' => 7, 'label' => 'Hutan dataran rendah & perbukitan Sumatra'],
+            'monyet-ekor-panjang'   => ['lat' => 0.5, 'lng' => 101.5, 'zoom' => 7, 'label' => 'Hutan riparian & sekunder Sumatra'],
+            'kuau-raja'             => ['lat' => -1.6, 'lng' => 101.3, 'zoom' => 7, 'label' => 'Hutan hujan dataran rendah Sumatra'],
+            'kambing-hutan-sumatra' => ['lat' => 2.5, 'lng' => 98.5, 'zoom' => 7, 'label' => 'Hutan pegunungan Bukit Barisan'],
+            'musang-leher-kuning'   => ['lat' => -1.5, 'lng' => 101.3, 'zoom' => 7, 'label' => 'Hutan primer & sekunder Sumatra'],
+            'musang-akar'           => ['lat' => -0.3, 'lng' => 100.3, 'zoom' => 7, 'label' => 'Hutan & perkebunan Sumatra Barat'],
         ];
 
         return $habitats[$slug] ?? ['lat' => -0.5, 'lng' => 101.5, 'zoom' => 6, 'label' => 'Pulau Sumatra'];

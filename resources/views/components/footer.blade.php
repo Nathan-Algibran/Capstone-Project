@@ -51,7 +51,7 @@
                     @php
                         $featureLinks = [
                             ['url' => '/deteksi', 'label' => 'Deteksi Satwa'],
-                            ['url' => '/peta-biomassa', 'label' => 'Peta Biomassa'],
+                            ['url' => '/peta-biomassa', 'label' => 'MapBiomas'],
                             ['url' => '/satwa', 'label' => 'Database Spesies'],
                         ];
                     @endphp

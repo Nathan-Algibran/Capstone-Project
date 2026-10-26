@@ -16,9 +16,11 @@ Route::get('/satwa/{species}', [SatwaController::class, 'show'])->name('satwa.sh
 Route::get('/deteksi', [DeteksiController::class, 'index'])->name('deteksi.index');
 Route::post('/deteksi/upload', [DeteksiController::class, 'upload'])->name('deteksi.upload');
 Route::get('/deteksi/hasil/{id}', [DeteksiController::class, 'hasil'])->name('deteksi.hasil');
+Route::get('/deteksi/hasil/{id}/cetak', [DeteksiController::class, 'cetak'])->name('deteksi.cetak');
 
 // Peta Biomassa
 Route::get('/peta-biomassa', [PetaController::class, 'index'])->name('peta.index');
+Route::get('/peta-biomassa/export-csv', [PetaController::class, 'exportCsv'])->name('peta.exportCsv');
 
 // Halaman Statis
 Route::get('/tentang', [PageController::class, 'tentang'])->name('tentang');
